@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
-import { Button, Container, Header, Body, Title, Left, Icon, Text } from 'native-base';
+import { Button, Container, Header, Body, Title, Left, Icon, Text, H1, Content } from 'native-base';
 
 export default class MyHomeScreen extends Component {
   render() {
@@ -14,11 +13,18 @@ export default class MyHomeScreen extends Component {
             <Title>Assinatura Eletrônica</Title>
           </Body>
         </Header>
-        <View style={{ marginTop:100,marginLeft:100}}>
-          <Button onPress={() => this.props.navigation.navigate('Settings')} >
-            <Text>Go to Settings</Text>
+        <Content>
+          <H1 style={{ marginRight: 'auto', marginLeft: 'auto', marginTop: '5%', marginBottom: '2%' }} >Termos</H1>
+          <Button style={{ marginTop: '3%' }} block primary onPress={() => this.props.navigation.navigate('RadiologiaIntervencionistaHemodinamica')}>
+            <Text> Radiologia Intervencionista Hemodinâmica </Text>
           </Button>
-        </View>
+          <Button style={{ marginTop: '3%' }} block primary onPress={() => this.props.navigation.navigate('RessonanciaMagnetica')}>
+            <Text> Ressonância Magnética </Text>
+          </Button>
+          <Button style={{ marginTop: '3%' }} block primary onPress={() => this.props.navigation.navigate('TomografiaComputadorizada')}>
+            <Text> Tomografia Computadorizada </Text>
+          </Button>
+        </Content>
       </Container>
     );
   }

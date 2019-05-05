@@ -8,11 +8,16 @@ import MyHomeScreen from "./src/MyHomeScreen/MyHomeScreen"
 import SettingsScreen from "./src/SettingsScreen/SettingsScreen"
 import SidebarMenu from './src/SidebarMenu/SidebarMenu';
 
+//Terms
+import RadiologiaIntervencionistaHemodinamica from './src/Terms/RadiologiaIntervencionistaHemodinamica';
+import RessonanciaMagnetica from './src/Terms/RessonanciaMagnetica';
+import TomografiaComputadorizada from './src/Terms/TomografiaComputadorizada';
+
 const MyDrawerNavigator = createDrawerNavigator({
-  Home:{ 
+  Terms:{ 
     screen: MyHomeScreen,
     navigationOptions: {
-      drawerLabel: 'Home',
+      drawerLabel: 'Termos',
     },
   },
   Settings: {
@@ -20,6 +25,15 @@ const MyDrawerNavigator = createDrawerNavigator({
     navigationOptions: {
       drawerLabel: 'Configurações',
     },
+  },
+  RadiologiaIntervencionistaHemodinamica: {
+    screen: RadiologiaIntervencionistaHemodinamica,
+  },
+  RessonanciaMagnetica: {
+    screen: RessonanciaMagnetica,
+  },
+  TomografiaComputadorizada: {
+    screen: TomografiaComputadorizada,
   },
 },
 {

@@ -8,9 +8,9 @@ export default class CustomSidebarMenu extends Component {
     this.logoImage = 'https://abrilveja.files.wordpress.com/2017/12/rede-dor-sao-luiz-1-original.png?w=680&h=453&crop=1';
     this.items = [
       {
-        navOptionThumb: 'home',
-        navOptionName: 'Home',
-        screenToNavigate: 'Home',
+        navOptionThumb: 'md-document',
+        navOptionName: 'Termos',
+        screenToNavigate: 'Terms',
       },
       {
         navOptionThumb: 'settings',
