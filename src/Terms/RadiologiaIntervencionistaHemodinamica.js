@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Button, Container, Header, Body, Title, Icon, Text, H1, Content, Item, Input, Label, DatePicker, Left, Right } from 'native-base';
-import { YellowBox, View, TouchableHighlight, StyleSheet } from 'react-native';
+import { YellowBox, View, TouchableHighlight, StyleSheet, PermissionsAndroid } from 'react-native';
 import SignatureCapture from 'react-native-signature-capture';
+import fetch_blob from 'react-native-fetch-blob';
+import RNFS from 'react-native-fs';
 
 YellowBox.ignoreWarnings(['Warning: ...']);
 
@@ -12,6 +14,7 @@ export default class RadiologiaIntervencionistaHemodinamica extends Component {
     this.state = { signature: null, chosenDate: new Date(), name: null, cpf: null, imgPath: null, imgStr: null };
     this.setDate = this.setDate.bind(this);
     this._onSaveEvent = this._onSaveEvent.bind(this);
+    this.requestCameraPermission();
   }
 
   setDate(newDate) {
@@ -30,6 +33,36 @@ export default class RadiologiaIntervencionistaHemodinamica extends Component {
       this.setState({ imgPath: result.pathName,  imgStr: result.encoded });
       console.log("String codificada em Base64", result.encoded);
       console.log("Caminho da imagem", result.pathName);
+
+      RNFS.writeFile(result.pathName, result.encoded, 'base64').then((success) => {
+        console.log('Assinatura gravado com sucesso');
+      }).catch((err) => {
+        console.log(err.message);
+      });
+  }
+
+  async requestCameraPermission() {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: 'Assinatura Eletronica - Permissão de Escrita',
+          message:
+            'Assinatura Eletrônica necessita de permissão de escrita ' +
+            'para gerar os arquivos de assinaturas.',
+          buttonNeutral: 'Perguntar Depois',
+          buttonNegative: 'Não',
+          buttonPositive: 'Sim',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('Acesso a external files concedido');
+      } else {
+        console.log('Acesso a external files negado');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
   }
 
   _onDragEvent() {
