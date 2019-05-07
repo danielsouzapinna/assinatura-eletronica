@@ -107,6 +107,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     splits {
         abi {
@@ -138,6 +139,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-html-to-pdf-custom')
     implementation project(':react-native-fs')
     implementation project(':react-native-fetch-blob')
     implementation project(':react-native-signature-capture')

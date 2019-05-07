@@ -4,6 +4,7 @@ import { YellowBox, View, TouchableHighlight, StyleSheet, PermissionsAndroid } f
 import SignatureCapture from 'react-native-signature-capture';
 import fetch_blob from 'react-native-fetch-blob';
 import RNFS from 'react-native-fs';
+import {RNHTMLtoPDF} from 'react-native-html-to-pdf-custom';
 
 YellowBox.ignoreWarnings(['Warning: ...']);
 
@@ -14,7 +15,7 @@ export default class RadiologiaIntervencionistaHemodinamica extends Component {
     this.state = { signature: null, chosenDate: new Date(), name: null, cpf: null, imgPath: null, imgStr: null };
     this.setDate = this.setDate.bind(this);
     this._onSaveEvent = this._onSaveEvent.bind(this);
-    this.requestCameraPermission();
+    this.requestExternalWriteStorage();
   }
 
   setDate(newDate) {
@@ -22,26 +23,38 @@ export default class RadiologiaIntervencionistaHemodinamica extends Component {
   }
 
   saveSign() {
-    this.refs["sign"].saveImage();
+    let date = new Date();
+    this.refs.sign.saveImage(`signature_${date.getTime()}`);
+    /* RNFS.exists('/storage/emulated/0/saved_signature/signature.png').then((result) => {
+      if(result){
+        console.log("Já existe uma assinatura, precisa apagar");
+        RNFS.unlink('/storage/emulated/0/saved_signature/signature.png').then(() => {
+          console.log('Signature deleted');
+        }).catch((err) => {
+          console.log('Signature deleted error: ', err.message);
+        });
+      }
+    }).catch((err) => {
+      console.log(err.message);
+    }); */
   }
 
   resetSign() {
       this.refs["sign"].resetImage();
   }
 
-  _onSaveEvent(result) {
-      this.setState({ imgPath: result.pathName,  imgStr: result.encoded });
+  async _onSaveEvent(result) {
       console.log("String codificada em Base64", result.encoded);
       console.log("Caminho da imagem", result.pathName);
-
-      RNFS.writeFile(result.pathName, result.encoded, 'base64').then((success) => {
-        console.log('Assinatura gravado com sucesso');
+      /* RNFS.writeFile('/storage/emulated/0/Android/data/com.assinaturaeletronica/files/signature.png', result.encoded, 'base64').then((success) => {
+        console.log('Signature success');
       }).catch((err) => {
         console.log(err.message);
-      });
+      }); */
+      this.createPDF(result.encoded);
   }
 
-  async requestCameraPermission() {
+  async requestExternalWriteStorage() {
     try {
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
@@ -63,6 +76,29 @@ export default class RadiologiaIntervencionistaHemodinamica extends Component {
     } catch (err) {
       console.warn(err);
     }
+  }
+
+  async createPDF(signature) {
+    console.log('signaature', signature);
+    
+    let options = {
+      html: `<h1>Assinatura Eletrônica</h1> <br><br> <img src='data:image/jpeg;base64, ${signature}'>`,
+      base64: true,
+      page: {
+        size: RNHTMLtoPDF.page.size.UsLetter,
+        orientation: RNHTMLtoPDF.page.orientation.Landscape,
+      },      
+    };
+    
+    let file = await RNHTMLtoPDF.convert(options)
+    console.log('file ', file)
+    let path = '/storage/emulated/0/test.pdf';
+
+    RNFS.writeFile('/storage/emulated/0/Android/data/com.assinaturaeletronica/files/test.pdf', file.base64, 'base64').then((success) => {
+      console.log('PDF gravado c  om sucesso');
+    }).catch((err) => {
+      console.log(err.message);
+    });
   }
 
   _onDragEvent() {
@@ -126,7 +162,7 @@ export default class RadiologiaIntervencionistaHemodinamica extends Component {
               ref="sign"
               onSaveEvent={this._onSaveEvent}
               onDragEvent={this._onDragEvent}
-              saveImageFileInExtStorage={false}
+              saveImageFileInExtStorage={true}
               showNativeButtons={false}
               showTitleLabel={true}
               viewMode={"portrait"}
@@ -148,6 +184,15 @@ export default class RadiologiaIntervencionistaHemodinamica extends Component {
                 </Button>
               </Right>
             </View>
+
+            <View style={{ flex: 1, flexDirection: "row" }}>
+              <Right>
+                <Button success onPress={() => { this.createPDF() } }>
+                  <Text>Create PDF</Text>
+                </Button>
+              </Right>
+            </View>
+
           </View>
         </Content>
       </Container>

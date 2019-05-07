@@ -3,6 +3,7 @@ package com.assinaturaeletronica;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.christopherdro.htmltopdf.RNHTMLtoPDFPackage;
 import com.rnfs.RNFSPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.rssignaturecapture.RSSignatureCapturePackage;
@@ -27,6 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNHTMLtoPDFPackage(),
             new RNFSPackage(),
             new RNFetchBlobPackage(),
             new RSSignatureCapturePackage(),
