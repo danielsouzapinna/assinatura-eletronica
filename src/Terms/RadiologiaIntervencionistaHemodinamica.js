@@ -5,6 +5,7 @@ import SignatureCapture from 'react-native-signature-capture';
 import fetch_blob from 'react-native-fetch-blob';
 import RNFS from 'react-native-fs';
 import {RNHTMLtoPDF} from 'react-native-html-to-pdf-custom';
+import Term from './Terms';
 
 YellowBox.ignoreWarnings(['Warning: ...']);
 
@@ -80,9 +81,10 @@ export default class RadiologiaIntervencionistaHemodinamica extends Component {
 
   async createPDF(signature) {
     console.log('signaature', signature);
+    console.log('term', Term);
     
     let options = {
-      html: `<h1>Assinatura Eletrônica</h1> <br><br> <img src='data:image/jpeg;base64, ${signature}'>`,
+      html: `${Term} <br><br> <img src='data:image/jpeg;base64, ${signature}'>`,
       base64: true,
       page: {
         size: RNHTMLtoPDF.page.size.UsLetter,
