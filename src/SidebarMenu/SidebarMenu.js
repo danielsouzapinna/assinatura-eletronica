@@ -5,7 +5,6 @@ import { Icon } from 'native-base';
 export default class CustomSidebarMenu extends Component {
   constructor() {
     super();
-    this.logoImage = 'https://abrilveja.files.wordpress.com/2017/12/rede-dor-sao-luiz-1-original.png?w=680&h=453&crop=1';
     this.items = [
       {
         navOptionThumb: 'md-document',
@@ -25,7 +24,7 @@ export default class CustomSidebarMenu extends Component {
       <View style={styles.sideMenuContainer}>
 
         {/*Top Large Image */}
-        <Image source={{ uri: this.logoImage }} style={styles.sideMenuLogoIcon} />
+        <Image source={require('../images/rede-dor-sao-luiz.png')} style={styles.sideMenuLogoIcon} />
         
         {/*Divider between Top Image and Sidebar Option*/}
         <View style={{ width: '100%', height: 1, backgroundColor: '#e2e2e2', marginTop: 15, }} />

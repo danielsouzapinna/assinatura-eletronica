@@ -139,6 +139,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-image-base64')
     implementation project(':react-native-html-to-pdf-custom')
     implementation project(':react-native-fs')
     implementation project(':react-native-fetch-blob')
