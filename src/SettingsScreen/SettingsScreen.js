@@ -13,6 +13,7 @@ export default class SettingsScreen extends Component {
           </Left>
           <Body>
             <Title>Configurações</Title>
+            <Text>Versão 1.0.0</Text>
           </Body>
         </Header>
       </Container>

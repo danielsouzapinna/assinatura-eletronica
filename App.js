@@ -10,6 +10,9 @@ import SidebarMenu from './src/SidebarMenu/SidebarMenu';
 
 //Terms
 import RadiologiaIntervencionistaHemodinamica from './src/Terms/RadiologiaIntervencionistaHemodinamica';
+import HemodynamicInterventionalRadiologyStep1 from './src/HemodynamicInterventionalRadiology/HemodynamicInterventionalRadiologyStep1';
+import HemodynamicInterventionalRadiologyStep2 from './src/HemodynamicInterventionalRadiology/HemodynamicInterventionalRadiologyStep2';
+import HemodynamicInterventionalRadiologyViewPDF from './src/HemodynamicInterventionalRadiology/HemodynamicInterventionalRadiologyViewPDF';
 import RessonanciaMagnetica from './src/Terms/RessonanciaMagnetica';
 import TomografiaComputadorizada from './src/Terms/TomografiaComputadorizada';
 
@@ -28,6 +31,15 @@ const MyDrawerNavigator = createDrawerNavigator({
   },
   RadiologiaIntervencionistaHemodinamica: {
     screen: RadiologiaIntervencionistaHemodinamica,
+  },
+  HemodynamicInterventionalRadiologyStep1: {
+    screen: HemodynamicInterventionalRadiologyStep1,
+  },
+  HemodynamicInterventionalRadiologyStep2: {
+    screen: HemodynamicInterventionalRadiologyStep2,
+  },
+  HemodynamicInterventionalRadiologyViewPDF: {
+    screen: HemodynamicInterventionalRadiologyViewPDF,
   },
   RessonanciaMagnetica: {
     screen: RessonanciaMagnetica,
