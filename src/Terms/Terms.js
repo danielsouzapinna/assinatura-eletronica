@@ -40,7 +40,7 @@ export default function(data) {
         <div class="col-2"></div>
         <div class="col-5">
           <figure>
-            <img src="data:image/jpeg;base64, ${data.patient.signature}"> 
+            <img src="data:image/jpeg;base64, ${data.patient.accompanyingSignature}"> 
             <figcaption>_____________________________________________________________________</figcaption>
             <b>Acompanhante/Testemunha</b> <br/>
             ${data.patient.accompanying} / RG: ${data.patient.accompanyingRG}
@@ -212,7 +212,7 @@ export default function(data) {
 
           <br>
           ${footer}
-          <br><br><br><br>
+          <br><br><br><br><br><br><br><br>
           ${header}
 
           <br>
@@ -332,7 +332,7 @@ export default function(data) {
           <div class="row">
             <div class="col-10"> 
               <figure>
-                <img src="data:image/jpeg;base64, ${data.patient.signature}"> 
+                <img src="data:image/jpeg;base64, ${data.hospitalCare.doctorSignature}"> 
                 <figcaption>_____________________________________________________________________</figcaption>
                 Data: ${data.hospitalCare.date} <br/>
                 Nome do Médico: ${data.hospitalCare.nameOfDoctor}

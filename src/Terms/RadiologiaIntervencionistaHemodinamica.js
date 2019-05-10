@@ -20,33 +20,16 @@ export default class RadiologiaIntervencionistaHemodinamica extends Component {
     this.requestExternalWriteStorage();
   }
 
-  setDate(newDate) {
-    this.setState({ chosenDate: newDate });
-  }
-
   saveSign() {
-    let date = new Date();
-    this.refs.sign.saveImage(`signature_${date.getTime()}`);
-    /* RNFS.exists('/storage/emulated/0/saved_signature/signature.png').then((result) => {
-      if(result){
-        console.log("Já existe uma assinatura, precisa apagar");
-        RNFS.unlink('/storage/emulated/0/saved_signature/signature.png').then(() => {
-          console.log('Signature deleted');
-        }).catch((err) => {
-          console.log('Signature deleted error: ', err.message);
-        });
-      }
-    }).catch((err) => {
-      console.log(err.message);
-    }); */
+    this.refs["sign"].saveImage();
   }
 
   resetSign() {
-      this.refs["sign"].resetImage();
+    this.refs["sign"].resetImage();
   }
 
   async _onSaveEvent(result) {
-      this.createPDF(result.encoded);
+    this.createPDF(result.encoded);
   }
 
   async requestExternalWriteStorage() {
@@ -198,8 +181,6 @@ export default class RadiologiaIntervencionistaHemodinamica extends Component {
               viewMode={"portrait"}
               showBorder={true}
               />
-            
-            
 
             <View style={{ flex: 1, flexDirection: "row" }}>
               <Left>
@@ -211,14 +192,6 @@ export default class RadiologiaIntervencionistaHemodinamica extends Component {
               <Right>
                 <Button success onPress={() => { this.saveSign() } }>
                   <Text>Salvar</Text>
-                </Button>
-              </Right>
-            </View>
-
-            <View style={{ flex: 1, flexDirection: "row" }}>
-              <Right>
-                <Button success onPress={() => { this.createPDF() } }>
-                  <Text>Create PDF</Text>
                 </Button>
               </Right>
             </View>

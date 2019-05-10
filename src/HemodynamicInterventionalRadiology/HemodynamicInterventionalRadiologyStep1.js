@@ -116,28 +116,28 @@ export default class HemodynamicInterventionalRadiologyStep1 extends Component {
             Já realizou exames com contraste iodado (ex. Tomografia Computadorizada, Urografia Excretora, Mapeamento de Tiróide, Cateterismo Cardiaco, Arteriografia,flebografia)? 
           </Text>
           
-          <ListItem>
+          <ListItem onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q1: true}}})}>
             <Left>
               <Text>Sim</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q1 === true} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q1: true}}})} />
+              <Radio selected={this.state.patient.answers.q1 === true} />
             </Right>
           </ListItem>
-          <ListItem>
+          <ListItem onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q1: false}}})} >
             <Left>
               <Text>Não</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q1 === false} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q1: false}}})} />
+              <Radio selected={this.state.patient.answers.q1 === false} />
             </Right>
           </ListItem>
-          <ListItem>
+          <ListItem onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q1: null}}})}>
             <Left>
               <Text>Não sei</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q1 === null} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q1: null}}})} />
+              <Radio selected={this.state.patient.answers.q1 === null} />
             </Right>
           </ListItem>
 
@@ -146,28 +146,28 @@ export default class HemodynamicInterventionalRadiologyStep1 extends Component {
             Já apresentou algum tipo de reação alérgica ao utilizar o Contraste iodado ou outra substância a base de iodo (Iodeto de potássio, solução de iodo para a pele), ou ainda qualquer outro medicamento ou picada de insetos? À produtos, alimentos e/ou medicamentos?
           </Text>
 
-          <ListItem>
+          <ListItem onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q2: true}}})}>
             <Left>
               <Text>Sim</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q2 === true} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q2: true}}})} />
+              <Radio selected={this.state.patient.answers.q2 === true} />
             </Right>
           </ListItem>
-          <ListItem>
+          <ListItem onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q2: false}}})}>
             <Left>
               <Text>Não</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q2 === false} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q2: false}}})} />
+              <Radio selected={this.state.patient.answers.q2 === false} />
             </Right>
           </ListItem>
-          <ListItem>
+          <ListItem onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q2: null}}})}>
             <Left>
               <Text>Não sei</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q2 === null} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q2: null}}})} />
+              <Radio selected={this.state.patient.answers.q2 === null} />
             </Right>
           </ListItem>
           
@@ -183,28 +183,28 @@ export default class HemodynamicInterventionalRadiologyStep1 extends Component {
             Possui Bronquite Asmática, Mieloma Múltiplo ou Trombocitopenia?
           </Text>
 
-          <ListItem>
+          <ListItem onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q3: true}}})}>
             <Left>
               <Text>Sim</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q3 === true} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q3: true}}})} />
+              <Radio selected={this.state.patient.answers.q3 === true} />
             </Right>
           </ListItem>
-          <ListItem>
+          <ListItem onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q3: false}}})}>
             <Left>
               <Text>Não</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q3 === false} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q3: false}}})} />
+              <Radio selected={this.state.patient.answers.q3 === false} />
             </Right>
           </ListItem>
-          <ListItem>
+          <ListItem onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q3: null}}})}>
             <Left>
               <Text>Não sei</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q3 === null} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q3: null}}})} />
+              <Radio selected={this.state.patient.answers.q3 === null} />
             </Right>
           </ListItem>
 
@@ -213,28 +213,28 @@ export default class HemodynamicInterventionalRadiologyStep1 extends Component {
             Sofre de diabetes e faz uso de metformina? (Ex. glucoformina, glifage, glucoformin)?
           </Text>
 
-          <ListItem>
+          <ListItem onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q4: true}}})}>
             <Left>
               <Text>Sim</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q4 === true} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q4: true}}})} />
+              <Radio selected={this.state.patient.answers.q4 === true} />
             </Right>
           </ListItem>
-          <ListItem>
+          <ListItem onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q4: false}}})}>
             <Left>
               <Text>Não</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q4 === false} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q4: false}}})} />
+              <Radio selected={this.state.patient.answers.q4 === false} />
             </Right>
           </ListItem>
-          <ListItem>
+          <ListItem onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q4: null}}})} >
             <Left>
               <Text>Não sei</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q4 === null} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q4: null}}})} />
+              <Radio selected={this.state.patient.answers.q4 === null} />
             </Right>
           </ListItem>
 
@@ -243,28 +243,28 @@ export default class HemodynamicInterventionalRadiologyStep1 extends Component {
             Sofre de alguma doença crônica (Ex. hipertensão, cirrose hepática), ou faz uso constante de medicamentos?
           </Text>
 
-          <ListItem>
+          <ListItem onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q5: true}}})} >
             <Left>
               <Text>Sim</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q5 === true} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q5: true}}})} />
+              <Radio selected={this.state.patient.answers.q5 === true} />
             </Right>
           </ListItem>
-          <ListItem>
+          <ListItem onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q5: false}}})} >
             <Left>
               <Text>Não</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q5 === false} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q5: false}}})} />
+              <Radio selected={this.state.patient.answers.q5 === false} />
             </Right>
           </ListItem>
-          <ListItem>
+          <ListItem onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q5: null}}})} >
             <Left>
               <Text>Não sei</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q5 === null} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q5: null}}})} />
+              <Radio selected={this.state.patient.answers.q5 === null} />
             </Right>
           </ListItem>
 
