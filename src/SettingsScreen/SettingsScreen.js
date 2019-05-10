@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Header, Left, Button, Icon, Body, Title } from 'native-base';
+import { Container, Content, Header, Left, Button, Icon, Body, Title, Text } from 'native-base';
 
 export default class SettingsScreen extends Component {
   render() {
@@ -7,15 +7,15 @@ export default class SettingsScreen extends Component {
       <Container>
         <Header>
           <Left style={{ flexDirection: 'row'}}>
-            <Button transparent onPress={() => this.props.navigation.goBack()} >
-              <Icon name='arrow-back' />
-            </Button>
+            <Icon onPress={() => this.props.navigation.openDrawer()} name="md-menu" style={{ color: 'white', marginRight: 15 }} />
           </Left>
           <Body>
             <Title>Configurações</Title>
-            <Text>Versão 1.0.0</Text>
           </Body>
         </Header>
+        <Content>
+          <Text>Versão 1.0.0</Text>
+        </Content>
       </Container>
     );
   }

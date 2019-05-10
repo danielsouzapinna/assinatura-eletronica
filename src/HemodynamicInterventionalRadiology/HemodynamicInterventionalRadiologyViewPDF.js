@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Container, Header, Body, Title, Left, Icon, Text, H1, Content } from 'native-base';
+import { Button, Container, Header, Body, Title, Left, Right, Icon, Text, H1, Content } from 'native-base';
 
 export default class HemodynamicInterventionalRadiologyViewPDF extends Component {
   render() {
@@ -12,6 +12,12 @@ export default class HemodynamicInterventionalRadiologyViewPDF extends Component
           <Body>
             <Title>Visualização do Termo</Title>
           </Body>
+          <Right>
+            <Button transparent onPress={() => this.props.navigation.navigate('HemodynamicInterventionalRadiologyStep2')}>
+              <Icon name='arrow-back' />
+              <Text>Voltar</Text>
+            </Button>
+          </Right>
         </Header>
         <Content>
           <H1 style={{ marginRight: 'auto', marginLeft: 'auto', marginTop: '5%', marginBottom: '2%' }} >

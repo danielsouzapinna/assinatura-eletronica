@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Container, Header, Body, Title, Left, Right, Icon, Text, H1, H3, Content, Switch } from 'native-base';
+import { Button, Container, Header, Body, Title, Left, Right, Icon, Text, H1, H3, Content, Switch, ListItem, Radio, Textarea, Form } from 'native-base';
 import moment from "moment";
 
 export default class HemodynamicInterventionalRadiologyStep1 extends Component {
@@ -31,16 +31,16 @@ export default class HemodynamicInterventionalRadiologyStep1 extends Component {
         accompanying: 'Simone Souza Pasqueti',
         accompanyingRG: '114568595',
         answers: {
-          q1: false,
-          q2: true,
+          q1: undefined,
+          q2: undefined,
           q2Description: 'Alergia a plazil',
-          q3: null,
-          q4: false,
-          q5: true,
-          q6: false,
-          q7: 'Sim, há 5 anos atrás.',
-          q8: 'Sim, cirurgia para retirada de amígdalas.',
-          q9: false,
+          q3: undefined,
+          q4: undefined,
+          q5: undefined,
+          q6: undefined,
+          q7: '',
+          q8: '',
+          q9: undefined,
         },
       }
     };
@@ -91,12 +91,6 @@ export default class HemodynamicInterventionalRadiologyStep1 extends Component {
           <Body>
             <Title>Informações</Title>
           </Body>
-          <Right>
-            <Button transparent onPress={() => this.props.navigation.goBack()}>
-              <Icon name='arrow-back' />
-              <Text>Voltar</Text>
-            </Button>
-          </Right>
         </Header>
         <Content>
           <H1 style={{ marginRight: 'auto', marginLeft: 'auto', marginTop: '5%', marginBottom: '2%' }} > Informações: </H1>
@@ -120,52 +114,203 @@ export default class HemodynamicInterventionalRadiologyStep1 extends Component {
           <H3 style={{ marginTop: '5%', marginBottom: '2%', fontWeight: 'bold' }} > Questionário do Paciente: </H3>
           <Text> 
             Já realizou exames com contraste iodado (ex. Tomografia Computadorizada, Urografia Excretora, Mapeamento de Tiróide, Cateterismo Cardiaco, Arteriografia,flebografia)? 
-            {"\n\n"} 
           </Text>
           
+          <ListItem>
+            <Left>
+              <Text>Sim</Text>
+            </Left>
+            <Right>
+              <Radio selected={this.state.patient.answers.q1 === true} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q1: true}}})} />
+            </Right>
+          </ListItem>
+          <ListItem>
+            <Left>
+              <Text>Não</Text>
+            </Left>
+            <Right>
+              <Radio selected={this.state.patient.answers.q1 === false} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q1: false}}})} />
+            </Right>
+          </ListItem>
+          <ListItem>
+            <Left>
+              <Text>Não sei</Text>
+            </Left>
+            <Right>
+              <Radio selected={this.state.patient.answers.q1 === null} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q1: null}}})} />
+            </Right>
+          </ListItem>
+
           <Text>
+            {"\n"}
             Já apresentou algum tipo de reação alérgica ao utilizar o Contraste iodado ou outra substância a base de iodo (Iodeto de potássio, solução de iodo para a pele), ou ainda qualquer outro medicamento ou picada de insetos? À produtos, alimentos e/ou medicamentos?
-            {"\n\n"}
           </Text>
 
+          <ListItem>
+            <Left>
+              <Text>Sim</Text>
+            </Left>
+            <Right>
+              <Radio selected={this.state.patient.answers.q2 === true} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q2: true}}})} />
+            </Right>
+          </ListItem>
+          <ListItem>
+            <Left>
+              <Text>Não</Text>
+            </Left>
+            <Right>
+              <Radio selected={this.state.patient.answers.q2 === false} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q2: false}}})} />
+            </Right>
+          </ListItem>
+          <ListItem>
+            <Left>
+              <Text>Não sei</Text>
+            </Left>
+            <Right>
+              <Radio selected={this.state.patient.answers.q2 === null} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q2: null}}})} />
+            </Right>
+          </ListItem>
+          
           <Text>
+            {"\n"} Qual(is)?
+          </Text>
+          <Content padder>
+            <Textarea rowSpan={5} bordered placeholder="Responda aqui..." value={this.state.patient.answers.q2Description} onChangeText={text => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q2Description: text}}})}/>
+          </Content>
+
+          <Text>
+            {"\n"}
             Possui Bronquite Asmática, Mieloma Múltiplo ou Trombocitopenia?
-            {"\n\n"}
           </Text>
 
+          <ListItem>
+            <Left>
+              <Text>Sim</Text>
+            </Left>
+            <Right>
+              <Radio selected={this.state.patient.answers.q3 === true} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q3: true}}})} />
+            </Right>
+          </ListItem>
+          <ListItem>
+            <Left>
+              <Text>Não</Text>
+            </Left>
+            <Right>
+              <Radio selected={this.state.patient.answers.q3 === false} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q3: false}}})} />
+            </Right>
+          </ListItem>
+          <ListItem>
+            <Left>
+              <Text>Não sei</Text>
+            </Left>
+            <Right>
+              <Radio selected={this.state.patient.answers.q3 === null} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q3: null}}})} />
+            </Right>
+          </ListItem>
+
           <Text>
+            {"\n"}
             Sofre de diabetes e faz uso de metformina? (Ex. glucoformina, glifage, glucoformin)?
-            {"\n\n"}
           </Text>
 
+          <ListItem>
+            <Left>
+              <Text>Sim</Text>
+            </Left>
+            <Right>
+              <Radio selected={this.state.patient.answers.q4 === true} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q4: true}}})} />
+            </Right>
+          </ListItem>
+          <ListItem>
+            <Left>
+              <Text>Não</Text>
+            </Left>
+            <Right>
+              <Radio selected={this.state.patient.answers.q4 === false} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q4: false}}})} />
+            </Right>
+          </ListItem>
+          <ListItem>
+            <Left>
+              <Text>Não sei</Text>
+            </Left>
+            <Right>
+              <Radio selected={this.state.patient.answers.q4 === null} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q4: null}}})} />
+            </Right>
+          </ListItem>
+
           <Text>
+            {"\n"}
             Sofre de alguma doença crônica (Ex. hipertensão, cirrose hepática), ou faz uso constante de medicamentos?
-            {"\n\n"}
           </Text>
 
+          <ListItem>
+            <Left>
+              <Text>Sim</Text>
+            </Left>
+            <Right>
+              <Radio selected={this.state.patient.answers.q5 === true} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q5: true}}})} />
+            </Right>
+          </ListItem>
+          <ListItem>
+            <Left>
+              <Text>Não</Text>
+            </Left>
+            <Right>
+              <Radio selected={this.state.patient.answers.q5 === false} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q5: false}}})} />
+            </Right>
+          </ListItem>
+          <ListItem>
+            <Left>
+              <Text>Não sei</Text>
+            </Left>
+            <Right>
+              <Radio selected={this.state.patient.answers.q5 === null} onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q5: null}}})} />
+            </Right>
+          </ListItem>
+
           <Text>
+            {"\n"}
             Faz uso de medicamentos anticoagulantes (ex. Marevan, Marcomar, Dindevan, Clexane e Fraxiparina)?
-            {"\n\n"}
+            {"\n"}
           </Text>
-          <Switch value={this.state.patient.answers.q6} onValueChange={this.answerQ6} />
+
+          <Left>
+            <Switch value={this.state.patient.answers.q6} onValueChange={this.answerQ6} />
+            <Text> {"\n"} </Text>
+          </Left>
 
           <Text>
+            {"\n"}
             Já se submeteu à Radioterapia ou Quimioterapia? Há quanto tempo?
-            {"\n\n"}
           </Text>
+          <Content padder>
+            <Textarea rowSpan={5} bordered placeholder="Responda aqui..." value={this.state.patient.answers.q7} onChangeText={text => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q7: text}}})}/>
+          </Content>
 
           <Text>
+            {"\n"}
             Já se submeteu á algum trauma ou cirurgia na região a ser examinada? Qual? Onde?
-            {"\n\n"}
           </Text>
+          <Content padder>
+            <Textarea rowSpan={5} bordered placeholder="Responda aqui..." value={this.state.patient.answers.q8} onChangeText={text => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q8: text}}})}/>
+          </Content>
 
           <Text>
+            {"\n"}
             A Sra. está grávida ou sob suspeita de gravidez?
-            {"\n\n"}
+            {"\n"}
           </Text>
-          <Switch value={this.state.patient.answers.q9} onValueChange={this.answerQ9} />
 
-          <Button style={{ marginTop: '3%' }} block primary onPress={() => this.props.navigation.navigate('HemodynamicInterventionalRadiologyStep2')}>
+          <Left>
+            <Switch value={this.state.patient.answers.q9} onValueChange={this.answerQ9} />
+            <Text> {"\n"} </Text>
+          </Left>
+
+          <Button block primary onPress={() => { 
+            this.props.navigation.navigate('HemodynamicInterventionalRadiologyStep2', {
+              data: this.state,
+            })
+          }} >
             <Text> Próximo </Text>
           </Button>
         </Content>

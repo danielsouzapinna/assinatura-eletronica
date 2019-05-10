@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Container, Header, Body, Title, Left, Icon, Text, H1, Content } from 'native-base';
-import moment from "moment";
 
 export default class MyHomeScreen extends Component {
   render() {
@@ -17,7 +16,7 @@ export default class MyHomeScreen extends Component {
         <Content>
           <H1 style={{ marginRight: 'auto', marginLeft: 'auto', marginTop: '5%', marginBottom: '2%' }} >Termos</H1>
           <Button style={{ marginTop: '3%' }} block primary 
-            onPress={() => this.props.navigation.navigate('HemodynamicInterventionalRadiologyStep1', {dateTime: moment(new Date()).format("DD/MM/YYYY HH:mm:ss") })}>
+            onPress={() => this.props.navigation.navigate('HemodynamicInterventionalRadiologyStep1')}>
             <Text> Radiologia Intervencionista Hemodinâmica Official</Text>
           </Button>
           <Button style={{ marginTop: '3%' }} block primary onPress={() => this.props.navigation.navigate('RadiologiaIntervencionistaHemodinamica')}>
