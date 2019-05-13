@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { createDrawerNavigator, createAppContainer } from 'react-navigation'
-import { Container, Thumbnail } from 'native-base';
+import { Container } from 'native-base';
 import { Dimensions } from 'react-native';
 
 //Pages
@@ -9,12 +9,10 @@ import SettingsScreen from "./src/SettingsScreen/SettingsScreen"
 import SidebarMenu from './src/SidebarMenu/SidebarMenu';
 
 //Terms
-import RadiologiaIntervencionistaHemodinamica from './src/Terms/RadiologiaIntervencionistaHemodinamica';
 import HemodynamicInterventionalRadiologyStep1 from './src/HemodynamicInterventionalRadiology/HemodynamicInterventionalRadiologyStep1';
 import HemodynamicInterventionalRadiologyStep2 from './src/HemodynamicInterventionalRadiology/HemodynamicInterventionalRadiologyStep2';
-import HemodynamicInterventionalRadiologyViewPDF from './src/HemodynamicInterventionalRadiology/HemodynamicInterventionalRadiologyViewPDF';
-import RessonanciaMagnetica from './src/Terms/RessonanciaMagnetica';
-import TomografiaComputadorizada from './src/Terms/TomografiaComputadorizada';
+import MagneticResonanceImaging from './src/MagneticResonanceImaging/MagneticResonanceImaging';
+import ComputedTomography from './src/ComputedTomography/ComputedTomography';
 
 const MyDrawerNavigator = createDrawerNavigator({
   Terms:{ 
@@ -29,23 +27,17 @@ const MyDrawerNavigator = createDrawerNavigator({
       drawerLabel: 'Configurações',
     },
   },
-  RadiologiaIntervencionistaHemodinamica: {
-    screen: RadiologiaIntervencionistaHemodinamica,
-  },
   HemodynamicInterventionalRadiologyStep1: {
     screen: HemodynamicInterventionalRadiologyStep1,
   },
   HemodynamicInterventionalRadiologyStep2: {
     screen: HemodynamicInterventionalRadiologyStep2,
   },
-  HemodynamicInterventionalRadiologyViewPDF: {
-    screen: HemodynamicInterventionalRadiologyViewPDF,
+  MagneticResonanceImaging: {
+    screen: MagneticResonanceImaging,
   },
-  RessonanciaMagnetica: {
-    screen: RessonanciaMagnetica,
-  },
-  TomografiaComputadorizada: {
-    screen: TomografiaComputadorizada,
+  ComputedTomography: {
+    screen: ComputedTomography,
   },
 },
 {

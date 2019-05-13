@@ -133,7 +133,9 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
   }
 
   async createPDF() {
-    alert(styles);
+    this.savePatientSign()
+    this.saveAccompanyingSign()
+    this.saveDoctorSign()
 
     let options = {
       html: Term(this.state),
@@ -160,8 +162,8 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
     return (
       <Container>
         <Header>
-          <Left style={{ flexDirection: 'row'}}>
-            <Icon onPress={() => this.props.navigation.openDrawer()} name="md-menu" style={{ color: 'white', marginRight: 15 }} />
+          <Left style={ styles.header }>
+            <Icon onPress={() => this.props.navigation.openDrawer()} name="md-menu" style={ styles.icon } />
           </Left>
           <Body>
             <Title>Termo</Title>
@@ -174,8 +176,8 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
           </Right>
         </Header>
         <Content>
-          <H1 style={{ marginRight: 'auto', marginLeft: 'auto', marginTop: '5%', marginBottom: '2%' }} > TERMO DE CONSENTIMENTO </H1>
-          <H3 style={{ marginRight: 'auto', marginLeft: 'auto', marginTop: '5%', marginBottom: '2%' }} > Radiologia Intervencionista Hemodinâmica </H3>
+          <H1 style={ styles.titlePage} > TERMO DE CONSENTIMENTO </H1>
+          <H3 style={ styles.titlePage} > Radiologia Intervencionista Hemodinâmica </H3>
 
           <Text> 
             Declaro para os devidos fins de direito, que fui prévia e adequadamente informado dos efeitos clínicos, adversos e
@@ -212,9 +214,9 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
             f) em raríssimos casos pode causar o óbito. {"\n"}
           </Text>
 
-          <H3 style={{ marginRight: 'auto', marginLeft: 'auto', marginTop: '5%', marginBottom: '2%' }} > Questionário ao Paciente </H3>
+          <H3 style={ styles.titlePage} > Questionário ao Paciente </H3>
 
-          <H3 style={{ marginTop: '5%', marginBottom: '2%', fontWeight: 'bold' }} > Questionário do Paciente: </H3>
+          <H3 style={ styles.subTitlePage } > Questionário do Paciente: </H3>
           <Text> 
             Já realizou exames com contraste iodado (ex. Tomografia Computadorizada, Urografia Excretora, Mapeamento de Tiróide, Cateterismo Cardiaco, Arteriografia,flebografia)? 
           </Text>
@@ -409,8 +411,8 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
             <Text> {"\n"} </Text>
           </Left>
 
-          <Label style={{marginTop: '5%' }}>Assinatura Paciente:</Label>
-          <SignatureCapture style={[{height: 100, border: '01px solid black'}]}
+          <Label style={ styles.buttonTop5 }>Assinatura Paciente:</Label>
+          <SignatureCapture style={ styles.signature }
             ref="signPatient"
             onSaveEvent={this._onSavePatientEvent}
             onDragEvent={this._onDragPatientEvent}
@@ -421,22 +423,16 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
             showBorder={true}
             />
 
-          <View style={{ flex: 1, flexDirection: "row" }}>
-            <Left>
+          <View style={ styles.viewReset }>
+            <Right>
               <Button onPress={() => { this.resetPatientSign() } }>
                 <Text>Limpar</Text>
-              </Button>
-            </Left>
-
-            <Right>
-              <Button success onPress={() => { this.savePatientSign() } }>
-                <Text>Salvar</Text>
               </Button>
             </Right>
           </View>
 
-          <Label style={{marginTop: '5%' }}>Assinatura Acompanhante:</Label>
-          <SignatureCapture style={[{height: 100, border: '01px solid black'}]}
+          <Label style={ styles.buttonTop5 }>Assinatura Acompanhante:</Label>
+          <SignatureCapture style={ styles.signature }
             ref="signAccompanying"
             onSaveEvent={this._onSaveAccompanyingEvent}
             onDragEvent={this._onDragAccompanyingEvent}
@@ -447,22 +443,16 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
             showBorder={true}
             />
 
-          <View style={{ flex: 1, flexDirection: "row" }}>
-            <Left>
+          <View style={ styles.viewReset }>
+            <Right>
               <Button onPress={() => { this.resetAccompanyingSign() } }>
                 <Text>Limpar</Text>
-              </Button>
-            </Left>
-
-            <Right>
-              <Button success onPress={() => { this.saveAccompanyingSign() } }>
-                <Text>Salvar</Text>
               </Button>
             </Right>
           </View>
 
-          <Label style={{marginTop: '5%' }}>Assinatura Médico:</Label>
-          <SignatureCapture style={[{height: 100, border: '01px solid black'}]}
+          <Label style={ styles.buttonTop5 }>Assinatura Médico:</Label>
+          <SignatureCapture style={ styles.signature }
             ref="signDoctor"
             onSaveEvent={this._onSaveDoctorEvent}
             onDragEvent={this._onDragDoctorEvent}
@@ -473,21 +463,15 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
             showBorder={true}
             />
 
-          <View style={{ flex: 1, flexDirection: "row" }}>
-            <Left>
+          <View style={ styles.viewReset }>
+            <Right>
               <Button onPress={() => { this.resetDoctorSign() } }>
                 <Text>Limpar</Text>
-              </Button>
-            </Left>
-
-            <Right>
-              <Button success onPress={() => { this.saveDoctorSign() } }>
-                <Text>Salvar</Text>
               </Button>
             </Right>
           </View>
 
-          <Button style={{ marginTop: '3%' }} block primary onPress={() => { this.createPDF() } }>
+          <Button style={ styles.buttonTop3 } block primary onPress={() => { this.createPDF() } }>
             <Text> Gerar PDF </Text>
           </Button>
         </Content>
@@ -497,15 +481,44 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
 }
 
 const styles = StyleSheet.create({
+  header: {
+    flexDirection: 'row',
+  },
+  icon: {
+    color: 'white', 
+    marginRight: 15,
+  },
+  titlePage: {
+    marginRight: 'auto', 
+    marginLeft: 'auto', 
+    marginTop: '5%', 
+    marginBottom: '2%'
+  },
+  subTitlePage: {
+    marginTop: '5%', 
+    marginBottom: '2%', 
+    fontWeight: 'bold',
+  },
   signature: {
-    flex: 1,
-    borderColor: '#000033',
-    borderWidth: 1,
+    height: 100, 
+    borderStyle: 'solid',
+    borderColor: 'black',
+    borderWidth: 1
   },
   buttonStyle: {
     flex: 1, justifyContent: "center", alignItems: "center", height: 50,
     backgroundColor: "#eeeeee",
     margin: 10
+  },
+  buttonTop5: {
+    marginTop: '5%',
+  },
+  buttonTop3: {
+    marginTop: '3%',
+  },
+  viewReset: {
+    flex: 1, 
+    flexDirection: "row",
   }
 });
 

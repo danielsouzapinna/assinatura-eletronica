@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { Button, Container, Header, Body, Title, Left, Right, Icon, Text, H1, H3, Content, Switch, ListItem, Radio, Textarea, Form } from 'native-base';
+import { Button, Container, Header, Body, Title, Left, Right, Icon, Text, H1, H3, Content, Switch, ListItem, Radio, Textarea } from 'native-base';
 import moment from "moment";
+import { StyleSheet } from 'react-native';
 
 export default class HemodynamicInterventionalRadiologyStep1 extends Component {
 
   constructor(props) {
     super(props);
-    //const { navigation } = this.props;
-    //let teste = navigation.getParam('dateTime', null)
 
     this.state = { 
       hospitalCare: {
@@ -85,23 +84,23 @@ export default class HemodynamicInterventionalRadiologyStep1 extends Component {
     return (
       <Container>
         <Header>
-          <Left style={{ flexDirection: 'row'}}>
-            <Icon onPress={() => this.props.navigation.openDrawer()} name="md-menu" style={{ color: 'white', marginRight: 15 }} />
+          <Left style={ styles.header }>
+            <Icon onPress={() => this.props.navigation.openDrawer()} name="md-menu" style={ styles.icon } />
           </Left>
           <Body>
             <Title>Informações</Title>
           </Body>
         </Header>
         <Content>
-          <H1 style={{ marginRight: 'auto', marginLeft: 'auto', marginTop: '5%', marginBottom: '2%' }} > Informações: </H1>
+          <H1 style={ styles.titlePage } > Informações: </H1>
           
-          <H3 style={{ marginTop: '5%', marginBottom: '2%', fontWeight: 'bold' }} > Hospitalares: </H3>
+          <H3 style={ styles.subTitlePage } > Hospitalares: </H3>
           <Text>Registro: {this.state.hospitalCare.registry} </Text>
           <Text>Leito: {this.state.hospitalCare.bed} </Text>
           <Text>Nome do Médico: {this.state.hospitalCare.nameOfDoctor} </Text>
           <Text>Data: {this.state.hospitalCare.dateTime} {"\n"} </Text>
 
-          <H3 style={{ marginTop: '5%', marginBottom: '2%', fontWeight: 'bold'}} > Paciente: </H3>
+          <H3 style={ styles.subTitlePage } > Paciente: </H3>
           <Text>Paciente: {this.state.patient.name} </Text>
           <Text>Data de Nascimento: {this.state.patient.dateOfBirth} </Text>
           <Text>Sexo: {this.state.patient.gender} </Text>
@@ -111,7 +110,7 @@ export default class HemodynamicInterventionalRadiologyStep1 extends Component {
           <Text>Acompanhante: {this.state.patient.accompanying} </Text>
           <Text>Acompanhante RG: {this.state.patient.accompanyingRG} {"\n"} </Text>
 
-          <H3 style={{ marginTop: '5%', marginBottom: '2%', fontWeight: 'bold' }} > Questionário do Paciente: </H3>
+          <H3 style={ styles.subTitlePage } > Questionário do Paciente: </H3>
           <Text> 
             Já realizou exames com contraste iodado (ex. Tomografia Computadorizada, Urografia Excretora, Mapeamento de Tiróide, Cateterismo Cardiaco, Arteriografia,flebografia)? 
           </Text>
@@ -309,8 +308,7 @@ export default class HemodynamicInterventionalRadiologyStep1 extends Component {
           <Button block primary onPress={() => { 
             this.props.navigation.navigate('HemodynamicInterventionalRadiologyStep2', {
               data: this.state,
-            })
-          }} >
+            }) }} >
             <Text> Próximo </Text>
           </Button>
         </Content>
@@ -318,3 +316,24 @@ export default class HemodynamicInterventionalRadiologyStep1 extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  header: {
+    flexDirection: 'row',
+  },
+  icon: {
+    color: 'white', 
+    marginRight: 15,
+  },
+  titlePage: {
+    marginRight: 'auto', 
+    marginLeft: 'auto', 
+    marginTop: '5%', 
+    marginBottom: '2%'
+  },
+  subTitlePage: {
+    marginTop: '5%', 
+    marginBottom: '2%', 
+    fontWeight: 'bold',
+  },
+});
