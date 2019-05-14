@@ -14,7 +14,7 @@ export default class ComputedTomography extends Component {
             <Title>Tomografia Computadorizada</Title>
           </Body>
         </Header>
-        <Content>
+        <Content padder>
           <H1 style={ styles.titlePage } >
             Tomografia Computadorizada
           </H1>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Container, Header, Body, Title, Left, Right, Icon, Text, H1, H3, Label, Content, ListItem, Radio, Switch, Textarea } from 'native-base';
+import { Button, Container, Header, Body, Title, Left, Right, Icon, H1, H3, Label, Content, ListItem, Textarea, Switch, Radio, Text } from 'native-base'; 
 import moment from "moment";
 
 import SignatureCapture from 'react-native-signature-capture';
@@ -70,6 +70,7 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
   );
 
   savePatientSign() {
+    console.log("Patient save");
     this.refs["signPatient"].saveImage();
   }
 
@@ -78,6 +79,7 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
   }
 
   _onSavePatientEvent = (result) => {
+    console.log("Patient >>", result);
     this.setState({
       patient: {
         ...this.state.patient,
@@ -87,31 +89,12 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
   }
 
   _onDragPatientEvent() {
-    console.log("dragged");
+    console.log("dragged patient");
   }
 
-  saveDoctorSign() {
-    this.refs["signDoctor"].saveImage();
-  }
-
-  resetDoctorSign() {
-    this.refs["signDoctor"].resetImage();
-  }
-
-  _onSaveDoctorEvent = (result) => {
-    this.setState({
-      hospitalCare: {
-        ...this.state.hospitalCare,
-        doctorSignature: result.encoded
-      }
-    })
-  }
-
-  _onDragDoctorEvent() {
-    console.log("dragged");
-  }
 
   saveAccompanyingSign() {
+    console.log("Accompanying save");
     this.refs["signAccompanying"].saveImage();
   }
 
@@ -120,6 +103,7 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
   }
 
   _onSaveAccompanyingEvent = (result) => {
+    console.log("Accompanying >>", result);
     this.setState({
       patient: {
         ...this.state.patient,
@@ -132,11 +116,31 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
     console.log("dragged");
   }
 
-  async createPDF() {
-    this.savePatientSign()
-    this.saveAccompanyingSign()
-    this.saveDoctorSign()
+  
+  saveDoctorSign() {
+    console.log("Doctor save");
+    this.refs["signDoctor"].saveImage();
+  }
 
+  resetDoctorSign() {
+    this.refs["signDoctor"].resetImage();
+  }
+
+  _onSaveDoctorEvent = (result) => {
+    console.log("doctor >>", result);
+    this.setState({
+      hospitalCare: {
+        ...this.state.hospitalCare,
+        doctorSignature: result.encoded
+      }
+    })
+  }
+
+  _onDragDoctorEvent() {
+    console.log("dragged");
+  }
+
+  async createPDF() { 
     let options = {
       html: Term(this.state),
       base64: true,
@@ -145,20 +149,30 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
         orientation: RNHTMLtoPDF.page.orientation.Portrait,
       },      
     };
-    
-    let file = await RNHTMLtoPDF.convert(options)
-    let id = new Date().getTime();
 
-    RNFS.writeFile(`/storage/emulated/0/Android/data/com.assinaturaeletronica/files/${this.state.patient.name}-${this.state.patient.rg}-${id}.pdf`, file.base64, 'base64').then((success) => {
-      console.log('PDF gravado com sucesso');
-      //this.props.navigation.navigate('HemodynamicInterventionalRadiologyViewPDF')
-    }).catch((err) => {
-      console.log(err.message);
-    });
+      console.log("Dados", this.state);
+      let file = await RNHTMLtoPDF.convert(options)
+      let id = new Date().getTime();
+
+      RNFS.writeFile(`/storage/emulated/0/Android/data/com.assinaturaeletronica/files/${this.state.patient.name}-${this.state.patient.rg}-${id}.pdf`, file.base64, 'base64').then((success) => {
+        console.log('PDF gravado com sucesso');
+        //this.props.navigation.navigate('HemodynamicInterventionalRadiologyViewPDF')
+      }).catch((err) => {
+        console.log(err.message);
+      });
+  }
+
+  generatePDF() {
+    this.savePatientSign()
+    this.saveAccompanyingSign()
+    this.saveDoctorSign()
+
+    setTimeout(() => { 
+      this.createPDF();
+    }, 3);
   }
 
   render() {
-    console.log("Dados", this.state);
     return (
       <Container>
         <Header>
@@ -175,14 +189,14 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
             </Button>
           </Right>
         </Header>
-        <Content>
+        <Content padder>
           <H1 style={ styles.titlePage} > TERMO DE CONSENTIMENTO </H1>
           <H3 style={ styles.titlePage} > Radiologia Intervencionista Hemodinâmica </H3>
 
           <Text> 
             Declaro para os devidos fins de direito, que fui prévia e adequadamente informado dos efeitos clínicos, adversos e
             colaterais, decorrentes da realização de exames de Radiologia Intervencionista e Hemodinâmica , bem como de
-            seu procedimento, abaixo especificado: {"\n"}
+            seu procedimento, abaixo especificado: {"\n\n"}
           </Text>
           
           <Text> 
@@ -194,11 +208,11 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
           <Text>
             Tenho conhecimento de que os procedimentos médicos/cirúrgicos, a que serei submetido, indicados pela equipe
             médica que me assiste, e necessários à salvaguarda de minha saúde, podem me trazer benefícios, porém oferecem
-            alguns riscos. {"\n"}
+            alguns riscos. {"\n\n"}
 
             Todas as dúvidas, relacionadas com o referido procedimentos foram-me amplamente esclarecidas, notadamente
             quanto a possíveis resultados insatisfatórios, com a possibilidade do agravamento do quadro e cuidados posteriores
-            que por mim devem ser observados. {"\n"}
+            que por mim devem ser observados. {"\n\n"}
 
             Reconheço que a medicina não é uma ciência exata e que efeitos adversos, seqüelas ou complicações poderão
             ocorrer, em razão de meu próprio metabolismo, independente da boa técnica médica aplicada.
@@ -214,35 +228,33 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
             f) em raríssimos casos pode causar o óbito. {"\n"}
           </Text>
 
-          <H3 style={ styles.titlePage} > Questionário ao Paciente </H3>
-
           <H3 style={ styles.subTitlePage } > Questionário do Paciente: </H3>
           <Text> 
             Já realizou exames com contraste iodado (ex. Tomografia Computadorizada, Urografia Excretora, Mapeamento de Tiróide, Cateterismo Cardiaco, Arteriografia,flebografia)? 
           </Text>
           
-          <ListItem>
+          <ListItem> 
             <Left>
-              <Text>Sim</Text>
+              <Text style={{color: 'gainsboro'}} >Sim</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q1 === true} />
+              <Radio selected={this.state.patient.answers.q1 === true} disabled={true} />
             </Right>
           </ListItem>
           <ListItem>
             <Left>
-              <Text>Não</Text>
+              <Text style={{color: 'gainsboro'}} >Não</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q1 === false} />
+              <Radio selected={this.state.patient.answers.q1 === false} disabled={true} />
             </Right>
           </ListItem>
           <ListItem>
             <Left>
-              <Text>Não sei</Text>
+              <Text style={{color: 'gainsboro'}} > Não sei</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q1 === null} />
+              <Radio selected={this.state.patient.answers.q1 === null} disabled={true} />
             </Right>
           </ListItem>
 
@@ -253,26 +265,26 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
 
           <ListItem>
             <Left>
-              <Text>Sim</Text>
+              <Text style={{color: 'gainsboro'}} >Sim</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q2 === true} />
+              <Radio selected={this.state.patient.answers.q2 === true} disabled={true} />
             </Right>
           </ListItem>
           <ListItem>
             <Left>
-              <Text>Não</Text>
+              <Text style={{color: 'gainsboro'}} >Não</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q2 === false} />
+              <Radio selected={this.state.patient.answers.q2 === false} disabled={true} />
             </Right>
           </ListItem>
           <ListItem>
             <Left>
-              <Text>Não sei</Text>
+              <Text style={{color: 'gainsboro'}} >Não sei</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q2 === null} />
+              <Radio selected={this.state.patient.answers.q2 === null} disabled={true} style={{color: 'gainsboro'}} />
             </Right>
           </ListItem>
           
@@ -280,7 +292,7 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
             {"\n"} Qual(is)?
           </Text>
           <Content padder>
-            <Textarea rowSpan={5} bordered placeholder="Responda aqui..." value={this.state.patient.answers.q2Description} />
+            <Textarea rowSpan={5} bordered placeholder="Responda aqui..." value={this.state.patient.answers.q2Description} disabled={true} style={{color:'grey'}} />  
           </Content>
 
           <Text>
@@ -290,26 +302,26 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
 
           <ListItem>
             <Left>
-              <Text>Sim</Text>
+              <Text style={{color: 'gainsboro'}} >Sim</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q3 === true} />
+              <Radio selected={this.state.patient.answers.q3 === true} disabled={true} />
             </Right>
           </ListItem>
           <ListItem>
             <Left>
-              <Text>Não</Text>
+              <Text style={{color: 'gainsboro'}} >Não</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q3 === false} />
+              <Radio selected={this.state.patient.answers.q3 === false} disabled={true} />
             </Right>
           </ListItem>
           <ListItem>
             <Left>
-              <Text>Não sei</Text>
+              <Text style={{color: 'gainsboro'}} >Não sei</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q3 === null} />
+              <Radio selected={this.state.patient.answers.q3 === null} disabled={true} />
             </Right>
           </ListItem>
 
@@ -320,26 +332,26 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
 
           <ListItem>
             <Left>
-              <Text>Sim</Text>
+              <Text style={{color: 'gainsboro'}} >Sim</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q4 === true} />
+              <Radio selected={this.state.patient.answers.q4 === true} disabled={true} />
             </Right>
           </ListItem>
           <ListItem>
             <Left>
-              <Text>Não</Text>
+              <Text style={{color: 'gainsboro'}} >Não</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q4 === false} />
+              <Radio selected={this.state.patient.answers.q4 === false} disabled={true} />
             </Right>
           </ListItem>
           <ListItem>
             <Left>
-              <Text>Não sei</Text>
+              <Text style={{color: 'gainsboro'}} >Não sei</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q4 === null} />
+              <Radio selected={this.state.patient.answers.q4 === null} disabled={true} />
             </Right>
           </ListItem>
 
@@ -350,26 +362,26 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
 
           <ListItem>
             <Left>
-              <Text>Sim</Text>
+              <Text style={{color: 'gainsboro'}} >Sim</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q5 === true} />
+              <Radio selected={this.state.patient.answers.q5 === true} disabled={true} />
             </Right>
           </ListItem>
           <ListItem>
             <Left>
-              <Text>Não</Text>
+              <Text style={{color: 'gainsboro'}} >Não</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q5 === false} />
+              <Radio selected={this.state.patient.answers.q5 === false} disabled={true} />
             </Right>
           </ListItem>
           <ListItem>
             <Left>
-              <Text>Não sei</Text>
+              <Text style={{color: 'gainsboro'}} >Não sei</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q5 === null} />
+              <Radio selected={this.state.patient.answers.q5 === null} disabled={true} />
             </Right>
           </ListItem>
 
@@ -380,7 +392,7 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
           </Text>
 
           <Left>
-            <Switch value={this.state.patient.answers.q6} />
+            <Switch value={this.state.patient.answers.q6} disabled={true} />
             <Text> {"\n"} </Text>
           </Left>
 
@@ -389,7 +401,7 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
             Já se submeteu à Radioterapia ou Quimioterapia? Há quanto tempo?
           </Text>
           <Content padder>
-            <Textarea rowSpan={5} bordered placeholder="Responda aqui..." value={this.state.patient.answers.q7} />
+            <Textarea rowSpan={5} bordered value={this.state.patient.answers.q7} disabled={true} style={{color:'grey'}} />
           </Content>
 
           <Text>
@@ -397,7 +409,7 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
             Já se submeteu á algum trauma ou cirurgia na região a ser examinada? Qual? Onde?
           </Text>
           <Content padder>
-            <Textarea rowSpan={5} bordered placeholder="Responda aqui..." value={this.state.patient.answers.q8} />
+            <Textarea rowSpan={5} bordered value={this.state.patient.answers.q8} disabled={true} style={{color:'grey'}} />
           </Content>
 
           <Text>
@@ -407,21 +419,24 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
           </Text>
 
           <Left>
-            <Switch value={this.state.patient.answers.q9} />
+            <Switch value={this.state.patient.answers.q9} disabled={true} />
             <Text> {"\n"} </Text>
           </Left>
 
           <Label style={ styles.buttonTop5 }>Assinatura Paciente:</Label>
-          <SignatureCapture style={ styles.signature }
-            ref="signPatient"
-            onSaveEvent={this._onSavePatientEvent}
-            onDragEvent={this._onDragPatientEvent}
-            saveImageFileInExtStorage={true}
-            showNativeButtons={false}
-            showTitleLabel={true}
-            viewMode={"portrait"}
-            showBorder={true}
-            />
+          <View style={{ borderWidth: 1, borderColor: '#000000', marginBottom: '3%'}} >
+            <SignatureCapture style={ styles.signature }
+              ref="signPatient"
+              onSaveEvent={this._onSavePatientEvent}
+              onDragEvent={this._onDragPatientEvent}
+              saveImageFileInExtStorage={false}
+              showNativeButtons={false}
+              showTitleLabel={true}
+              viewMode={"portrait"} />
+              <View style={{flexDirection: 'row', height: 0.5}}>
+                <View style={{backgroundColor: 'black', borderStyle: 'dashed', width: '80%', height: 0.5, flex: 1, alignSelf: 'center', marginBottom: '10%'}} />
+              </View>
+          </View>
 
           <View style={ styles.viewReset }>
             <Right>
@@ -432,16 +447,21 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
           </View>
 
           <Label style={ styles.buttonTop5 }>Assinatura Acompanhante:</Label>
-          <SignatureCapture style={ styles.signature }
-            ref="signAccompanying"
-            onSaveEvent={this._onSaveAccompanyingEvent}
-            onDragEvent={this._onDragAccompanyingEvent}
-            saveImageFileInExtStorage={true}
-            showNativeButtons={false}
-            showTitleLabel={true}
-            viewMode={"portrait"}
-            showBorder={true}
-            />
+          <View style={{ borderWidth: 1, borderColor: '#000000', marginBottom: '3%'}} >
+            <SignatureCapture style={ styles.signature }
+              ref="signAccompanying"
+              onSaveEvent={this._onSaveAccompanyingEvent}
+              onDragEvent={this._onDragAccompanyingEvent}
+              saveImageFileInExtStorage={false}
+              showNativeButtons={false}
+              showTitleLabel={true}
+              viewMode={"portrait"}
+              showBorder={true}
+              />
+              <View style={{flexDirection: 'row', height: 0.5}}>
+                <View style={{backgroundColor: 'black', borderStyle: 'dashed', width: '80%', height: 0.5, flex: 1, alignSelf: 'center', marginBottom: '10%'}} />
+              </View>
+          </View>
 
           <View style={ styles.viewReset }>
             <Right>
@@ -452,16 +472,21 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
           </View>
 
           <Label style={ styles.buttonTop5 }>Assinatura Médico:</Label>
-          <SignatureCapture style={ styles.signature }
-            ref="signDoctor"
-            onSaveEvent={this._onSaveDoctorEvent}
-            onDragEvent={this._onDragDoctorEvent}
-            saveImageFileInExtStorage={true}
-            showNativeButtons={false}
-            showTitleLabel={true}
-            viewMode={"portrait"}
-            showBorder={true}
-            />
+          <View style={{ borderWidth: 1, borderColor: '#000000', marginBottom: '3%'}} >
+            <SignatureCapture style={ styles.signature }
+              ref="signDoctor"
+              onSaveEvent={this._onSaveDoctorEvent}
+              onDragEvent={this._onDragDoctorEvent}
+              saveImageFileInExtStorage={false}
+              showNativeButtons={false}
+              showTitleLabel={true}
+              viewMode={"portrait"}
+              showBorder={true}
+              />
+              <View style={{flexDirection: 'row', height: 0.5}}>
+                <View style={{backgroundColor: 'black', borderStyle: 'dashed', width: '80%', height: 0.5, flex: 1, alignSelf: 'center', marginBottom: '10%'}} />
+              </View>
+          </View>
 
           <View style={ styles.viewReset }>
             <Right>
@@ -471,9 +496,11 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
             </Right>
           </View>
 
-          <Button style={ styles.buttonTop3 } block primary onPress={() => { this.createPDF() } }>
-            <Text> Gerar PDF </Text>
-          </Button>
+          <View style={{ marginTop: '4%' }}>
+            <Button block primary onPress={() => { this.generatePDF() }}>
+              <Text> Gerar PDF </Text>
+            </Button>
+          </View>
         </Content>
       </Container>
     );
@@ -518,7 +545,7 @@ const styles = StyleSheet.create({
   },
   viewReset: {
     flex: 1, 
-    flexDirection: "row",
+    flexDirection: "row"
   }
 });
 

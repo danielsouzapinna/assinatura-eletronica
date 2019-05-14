@@ -14,7 +14,7 @@ export default class MagneticResonanceImaging extends Component {
             <Title>Ressonância Magnética</Title>
           </Body>
         </Header>
-        <Content>
+        <Content padder>
           <H1 style={ styles.titlePage } >
             Ressonância Magnética
           </H1>

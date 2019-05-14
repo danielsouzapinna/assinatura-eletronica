@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Container, Header, Body, Title, Left, Right, Icon, Text, H1, H3, Content, Switch, ListItem, Radio, Textarea } from 'native-base';
+import { Button, Container, Header, Body, Title, Left, Right, Icon, H1, H3, Content, Switch, ListItem, Radio, Textarea, Text } from 'native-base';
 import moment from "moment";
 import { StyleSheet } from 'react-native';
 
@@ -15,7 +15,9 @@ export default class HemodynamicInterventionalRadiologyStep1 extends Component {
         registry: '12799847',
         bed: 1,
         dateTime: moment(new Date()).format("DD/MM/YYYY HH:mm:ss"),
+        date: moment(new Date()).format("DD/MM/YYYY"),
         nameOfDoctor: 'DANIEL BRITO DE SOUZA - CRM: 40430',
+        doctorSignature: null,
         category: 'CATE42'
       },
       patient: {
@@ -29,6 +31,7 @@ export default class HemodynamicInterventionalRadiologyStep1 extends Component {
         weight: '40kg',
         accompanying: 'Simone Souza Pasqueti',
         accompanyingRG: '114568595',
+        accompanyingSignature: null,
         answers: {
           q1: undefined,
           q2: undefined,
@@ -91,7 +94,7 @@ export default class HemodynamicInterventionalRadiologyStep1 extends Component {
             <Title>Informações</Title>
           </Body>
         </Header>
-        <Content>
+        <Content padder>
           <H1 style={ styles.titlePage } > Informações: </H1>
           
           <H3 style={ styles.subTitlePage } > Hospitalares: </H3>
@@ -120,7 +123,7 @@ export default class HemodynamicInterventionalRadiologyStep1 extends Component {
               <Text>Sim</Text>
             </Left>
             <Right>
-              <Radio selected={this.state.patient.answers.q1 === true} />
+              <Radio selected={this.state.patient.answers.q1 === true} radioColor='red' />
             </Right>
           </ListItem>
           <ListItem onPress={() => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q1: false}}})} >
@@ -173,9 +176,7 @@ export default class HemodynamicInterventionalRadiologyStep1 extends Component {
           <Text>
             {"\n"} Qual(is)?
           </Text>
-          <Content padder>
-            <Textarea rowSpan={5} bordered placeholder="Responda aqui..." value={this.state.patient.answers.q2Description} onChangeText={text => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q2Description: text}}})}/>
-          </Content>
+          <Textarea rowSpan={5} bordered placeholder="Responda aqui..." value={this.state.patient.answers.q2Description} onChangeText={text => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q2Description: text}}})}/>
 
           <Text>
             {"\n"}
@@ -282,17 +283,13 @@ export default class HemodynamicInterventionalRadiologyStep1 extends Component {
             {"\n"}
             Já se submeteu à Radioterapia ou Quimioterapia? Há quanto tempo?
           </Text>
-          <Content padder>
-            <Textarea rowSpan={5} bordered placeholder="Responda aqui..." value={this.state.patient.answers.q7} onChangeText={text => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q7: text}}})}/>
-          </Content>
+          <Textarea rowSpan={5} bordered placeholder="Responda aqui..." value={this.state.patient.answers.q7} onChangeText={text => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q7: text}}})}/>
 
           <Text>
             {"\n"}
             Já se submeteu á algum trauma ou cirurgia na região a ser examinada? Qual? Onde?
           </Text>
-          <Content padder>
-            <Textarea rowSpan={5} bordered placeholder="Responda aqui..." value={this.state.patient.answers.q8} onChangeText={text => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q8: text}}})}/>
-          </Content>
+          <Textarea rowSpan={5} bordered placeholder="Responda aqui..." value={this.state.patient.answers.q8} onChangeText={text => this.setState({ patient: {...this.state.patient, answers: {...this.state.patient.answers, q8: text}}})}/>
 
           <Text>
             {"\n"}

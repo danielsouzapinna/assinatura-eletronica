@@ -44,7 +44,7 @@ export default class MyHomeScreen extends Component {
             <Title>Assinatura Eletrônica</Title>
           </Body>
         </Header>
-        <Content>
+        <Content padder>
           <H1 style={ styles.titlePage } >Termos</H1>
           <Button style={ styles.button } block primary 
             onPress={() => this.props.navigation.navigate('HemodynamicInterventionalRadiologyStep1')}>

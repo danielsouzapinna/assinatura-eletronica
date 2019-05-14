@@ -14,7 +14,7 @@ export default class SettingsScreen extends Component {
             <Title>Configurações</Title>
           </Body>
         </Header>
-        <Content>
+        <Content padder>
           <Text>Versão 1.0.0</Text>
         </Content>
       </Container>
