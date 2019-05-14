@@ -53,8 +53,8 @@ export default class MyHomeScreen extends Component {
           <Button style={ styles.button } block primary onPress={() => this.props.navigation.navigate('MagneticResonanceImaging')}>
             <Text> Ressonância Magnética </Text>
           </Button>
-          <Button style={ styles.button } block primary onPress={() => this.props.navigation.navigate('ComputedTomography')}>
-            <Text> Tomografia Computadorizada </Text>
+          <Button style={ styles.button } block primary onPress={() => this.props.navigation.navigate('EsophagealManometryAndEsophagealPHmetry')}>
+            <Text> Manometria esofágica e pHmetria esofágica </Text>
           </Button>
         </Content>
       </Container>

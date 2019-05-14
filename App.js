@@ -12,7 +12,7 @@ import SidebarMenu from './src/SidebarMenu/SidebarMenu';
 import HemodynamicInterventionalRadiologyStep1 from './src/HemodynamicInterventionalRadiology/HemodynamicInterventionalRadiologyStep1';
 import HemodynamicInterventionalRadiologyStep2 from './src/HemodynamicInterventionalRadiology/HemodynamicInterventionalRadiologyStep2';
 import MagneticResonanceImaging from './src/MagneticResonanceImaging/MagneticResonanceImaging';
-import ComputedTomography from './src/ComputedTomography/ComputedTomography';
+import EsophagealManometryAndEsophagealPHmetry from './src/EsophagealManometryAndEsophagealPHmetry/EsophagealManometryAndEsophagealPHmetry';
 
 const MyDrawerNavigator = createDrawerNavigator({
   Terms:{ 
@@ -36,8 +36,8 @@ const MyDrawerNavigator = createDrawerNavigator({
   MagneticResonanceImaging: {
     screen: MagneticResonanceImaging,
   },
-  ComputedTomography: {
-    screen: ComputedTomography,
+  EsophagealManometryAndEsophagealPHmetry: {
+    screen: EsophagealManometryAndEsophagealPHmetry,
   },
 },
 {
