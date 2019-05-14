@@ -7,6 +7,7 @@ import {RNHTMLtoPDF} from 'react-native-html-to-pdf-custom';
 import RNFS from 'react-native-fs';
 import { YellowBox, View, StyleSheet } from 'react-native';
 import Term from '../Terms/Terms.js';
+import FileViewer from 'react-native-file-viewer';
 
 export default class HemodynamicInterventionalRadiologyStep2 extends Component {
 
@@ -156,7 +157,13 @@ export default class HemodynamicInterventionalRadiologyStep2 extends Component {
 
       RNFS.writeFile(`/storage/emulated/0/Android/data/com.assinaturaeletronica/files/${this.state.patient.name}-${this.state.patient.rg}-${id}.pdf`, file.base64, 'base64').then((success) => {
         console.log('PDF gravado com sucesso');
-        //this.props.navigation.navigate('HemodynamicInterventionalRadiologyViewPDF')
+        const path = `/storage/emulated/0/Android/data/com.assinaturaeletronica/files/${this.state.patient.name}-${this.state.patient.rg}-${id}.pdf`;
+        FileViewer.open(path, { showOpenWithDialog: true }).then(() => {
+            console.log("documento aberto?")
+        }).catch(error => {
+          console.log("erro ao abrir documento...")
+        });
+
       }).catch((err) => {
         console.log(err.message);
       });
